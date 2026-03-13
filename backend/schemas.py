@@ -4,7 +4,7 @@ from typing import Optional, List
 class CreateEmployee(BaseModel):
     full_name: str
     email: EmailStr # use EmailStr because its good for email validation
-    experience_lvl: str
+    experience_level: str
     tech_stack: str
     project_duration: str
     additional_skills: Optional[str] = None
