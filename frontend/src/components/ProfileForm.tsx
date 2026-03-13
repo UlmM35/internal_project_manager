@@ -76,7 +76,7 @@ const ProfileForm = ({ projects }: Props) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <h2>Project Assignment Form</h2>
+            <h2>Telia Project Assignment Form</h2>
             <p>Complete your profile to get assigned to internal projects.</p>
 
             {message && <p style={{ color: 'green' }}>{message}</p>}
@@ -84,12 +84,12 @@ const ProfileForm = ({ projects }: Props) => {
 
             <div>
                 <label htmlFor="full-name">Full Name *</label><br />
-                <input type="text" id="full-name" value={fullName} onChange={e => setFullName(e.target.value)} required/>
+                <input type="text" id="full-name" value={fullName} onChange={e => setFullName(e.target.value)} placeholder="Mari Maasikas" required/>
             </div>
 
             <div>
                 <label htmlFor="email">Email Address *</label><br />
-                <input type="email" id="email" value={email} onChange={e => setEmail(e.target.value)} required/>
+                <input type="email" id="email" value={email} onChange={e => setEmail(e.target.value)}  placeholder='mari.maasikas@gmail.com' required/>
             </div>
 
             <div>
@@ -156,7 +156,7 @@ const ProfileForm = ({ projects }: Props) => {
                 <label htmlFor="confirm">I confirm my availability for the selected projects</label>
             </div>
 
-            <div>
+            <div className="button-row">
                 <button type="submit">Save Profile</button>
                 <button type="button" onClick={handleClear}>Clear Form</button>
             </div>

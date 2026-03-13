@@ -4,10 +4,12 @@ from sqlalchemy.orm import Session
 from database import engine, get_db, Base
 from models import Employee, Project
 from schemas import CreateEmployee, EmployeeResponse
+from data import load_projects
 
 app = FastAPI()
 
 Base.metadata.create_all(bind=engine)
+load_projects()
 
 app.add_middleware(
     CORSMiddleware,
