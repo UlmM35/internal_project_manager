@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Project } from '../types';
+import { Project, EmployeeResponse } from '../types';
 import { getEmployee, saveEmployee } from '../services/employees'
 
 interface Props {
@@ -18,7 +18,7 @@ const ProfileForm = ({ projects }: Props) => {
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
 
-    const populateForm = (data: { full_name: string; email: string; experience_level: string; tech_stack: string; project_duration: string; additional_skills: string | null; projects: { id: number }[] }) => {
+    const populateForm = (data: EmployeeResponse) => {
         setFullName(data.full_name);
         setEmail(data.email);
         setExperienceLevel(data.experience_level);
@@ -30,7 +30,9 @@ const ProfileForm = ({ projects }: Props) => {
 
     useEffect(() => {
         const savedEmail = sessionStorage.getItem('email');
-        if (!savedEmail) return;
+        if (!savedEmail) {
+            return;
+        }
         getEmployee(savedEmail).then(data => {
             if (data) {
                 populateForm(data)
@@ -40,7 +42,7 @@ const ProfileForm = ({ projects }: Props) => {
         });
     }, []);
 
-    const handleSubmit = async (e: React.SubmitEvent) => {
+    const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         try {

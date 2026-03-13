@@ -2,6 +2,7 @@ import './App.css'
 import { useState, useEffect } from 'react';
 import { Project } from './types';
 import { getProjects } from './services/projects'
+import Notification from './components/Notification'
 import ProfileForm from './components/ProfileForm';
 
 const App = () => {
@@ -15,7 +16,7 @@ const App = () => {
   }, []);
  
   if (error) {
-    return <p style={{ color: 'red' }}>{error}</p>;
+    return <Notification type="error" message={error} />
   }
 
   if (!projects.length) {
