@@ -47,9 +47,6 @@ Start the server:
 uvicorn main:app --reload
 ```
 
-The API will be available at `http://localhost:8000`.  
-Interactive API docs at `http://localhost:8000/docs`.
-
 ### Frontend
 
 ```bash
