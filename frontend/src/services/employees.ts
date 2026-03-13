@@ -1,6 +1,6 @@
 import axios from "axios";
 import { CreateEmployee, EmployeeResponse } from "../types";
-import { BASE_URL } from "../constants";
+import { BASE_URL } from "../constants/constants";
 
 const api = axios.create({
     baseURL: BASE_URL,

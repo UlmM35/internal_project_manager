@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Project, EmployeeResponse } from '../types';
 import { getEmployee, saveEmployee } from '../services/employees'
+import { TIMEOUT_IN_MILLIS } from '../constants/constants';
 
 interface Props {
     projects: Project[];
@@ -18,6 +19,7 @@ const ProfileForm = ({ projects }: Props) => {
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
 
+    // fills the form with data from the backend
     const populateForm = (data: EmployeeResponse) => {
         setFullName(data.full_name);
         setEmail(data.email);
@@ -28,6 +30,7 @@ const ProfileForm = ({ projects }: Props) => {
         setProjectIds(data.projects.map(p => p.id));
     }
 
+    // when the page loads, check if the user is a returning user and fill out the form
     useEffect(() => {
         const savedEmail = sessionStorage.getItem('email');
         if (!savedEmail) {
@@ -37,7 +40,7 @@ const ProfileForm = ({ projects }: Props) => {
             if (data) {
                 populateForm(data)
                 setMessage(`Welcome back, ${data.full_name}.`)
-                setTimeout(() => setMessage(''), 3000);
+                setTimeout(() => setMessage(''), TIMEOUT_IN_MILLIS);
             }
         });
     }, []);
@@ -57,10 +60,10 @@ const ProfileForm = ({ projects }: Props) => {
             });
             setMessage(`Profile saved! Welcome, ${data.full_name}.`);
             sessionStorage.setItem('email', data.email);
-            setTimeout(() => setMessage(''), 3000);
+            setTimeout(() => setMessage(''), TIMEOUT_IN_MILLIS);
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Something went wrong');
-            setTimeout(() => setError(''), 3000);
+            setTimeout(() => setError(''), TIMEOUT_IN_MILLIS);
         }
     }
 

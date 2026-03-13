@@ -9,6 +9,7 @@ from data import load_projects
 app = FastAPI()
 
 Base.metadata.create_all(bind=engine)
+# load projects into db when starting the application
 load_projects()
 
 app.add_middleware(
@@ -24,7 +25,7 @@ def get_projects(db: Session = Depends(get_db)):
 
 @app.post("/profile", response_model=EmployeeResponse)
 def save_profile(employee_data: CreateEmployee, db: Session = Depends(get_db)):
- 
+    
     if not employee_data.project_ids:
         raise HTTPException(status_code=400, detail="At least one project must be selected")
  
@@ -32,7 +33,8 @@ def save_profile(employee_data: CreateEmployee, db: Session = Depends(get_db)):
  
     if len(projects) != len(employee_data.project_ids):
         raise HTTPException(status_code=400, detail="One or more project IDs are invalid")
- 
+    
+    # checks if employee already exists by email filtering, inserts employee if new, updates if it's a returning employee
     employee = db.query(Employee).filter(Employee.email == employee_data.email).first()
  
     if employee:
